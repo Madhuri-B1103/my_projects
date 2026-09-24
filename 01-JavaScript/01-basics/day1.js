@@ -563,3 +563,104 @@ const getEmployeeSummary = (employee, fallbackCity = "Unknown") => {
 console.log(getEmployeeSummary(employees9[0]));
 console.log(getEmployeeSummary(employees9[1]));
 console.log(getEmployeeSummary(employees9[2]));
+
+//Day 6 Practice
+//Spread vs Rest: Rest can collect the remaining values during destructuring (or function arguments) into one variable, while spread expands existing values into a new array/object/function call.
+//Spread
+const numbers7 = [10, 20,30];
+const copy = [...numbers7];
+console.log(copy);
+
+//Rest
+function calculateTotal(first,second, ...prices) {
+    console.log(prices);
+}
+
+calculateTotal(100, 200, 50); 
+
+//Template literals `${}`
+const employeName= "Ravi";
+const sal = 70000;
+const role = "Developer";
+//op: Ravi is a Developer earning 70000
+console.log(`${employeName} is a ${role} earning ${sal}`);
+
+//Ravi is a Developer and earns ₹70000 per year.
+console.log(`${employeName} is a ${role} and earns ₹${sal} per year`);
+//Ravi is a Developer and earns ₹5833.333333333333 per month
+console.log(`${employeName} is a ${role} and earns ₹${sal / 12} per month`);
+
+//Template literals + Objects
+// op: Meena is a Tester from Hyderabad and earns ₹60000 per year.
+const employee7 = {
+    name: "Meena",
+    role: "Tester",
+    salary: 60000,
+    profile: {
+        city: "Hyderabad"
+    }
+};
+
+console.log(`${employee7.name} is a ${employee7.role} from ${employee7.profile.city} and earns ₹${employee7.salary} per year`);
+
+//Object Methods: Object.keys(), Object.values(), Objects.entries()
+//We want to get only the property names whose values are strings.
+const employee8 = {
+    name: "Ravi",
+    role: "Developer",
+    salary: 70000,
+    city: "Hyderabad"
+};
+//Expected op: ["name", "role", "city"]
+const stringKeys = Object.entries(employee8).filter(([key,value]) => typeof value === "string")
+                                        .map(([key]) => key );
+console.log(stringKeys);
+
+//Exp result: ["salary", "experience"]
+const employee9 = {
+    name: "Ravi",
+    role: "Developer",
+    salary: 70000,
+    city: "Hyderabad",
+    experience: 5
+};
+
+//is simply array destructuring in the function parameter.
+const numberKeys = Object.entries(employee9).filter(([key, value]) => typeof(value) === "number")
+                                            .map(([key, value]) => key);
+
+//Shorter verion of this:
+// .filter(entry => {
+//     const [key, value] = entry;
+
+//     return typeof value === "string";
+// })
+
+//This is directly passing whole item as entry, with accessing array item 0 and 1
+//const numberKeys = Object.entries(employee9).filter(entry => typeof(entry[1]) === "number").map(entry => entry[0]);
+                                            
+console.log(numberKeys);
+
+//Task: Create a new array containing strings like this for only the string-valued properties:
+/* Expected op:
+[
+    "name: Ravi",
+    "role: Developer",
+    "city: Hyderabad"
+]
+*/
+
+const employee10 = {
+    name: "Ravi",
+    role: "Developer",
+    salary: 70000,
+    city: "Hyderabad",
+    experience: 5,
+    active: true
+};
+
+const stringDetails = Object.entries(employee10)
+    .filter(([key,value]) => typeof(value) === "string")
+    .map(([key,value]) => `${key} : ${value}`);
+
+console.log(stringDetails);
